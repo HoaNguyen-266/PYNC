@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="checkout-container">
+    
+    <div class="order-summary">
+        <h2>Tóm Tắt Đơn Hàng</h2>
+        
+        <div id="selected-product-container">
+            <div class="product-item-checkout" style="justify-content: center; color: #ff6f61;">
+                Đang tải thông tin sản phẩm...
+            </div>
+        </div>
+
+        <div class="subtotal-row">
+            <span>Tổng cộng:</span>
+            <span id="total-amount">0 VNĐ</span>
+        </div>
+        
+    </div>
+
+    <div class="shipping-info">
+        <h2>Thông Tin Thanh Toán</h2>
+        
+        <form>
+            <div class="form-group-checkout">
+                <label for="fullname">Họ và Tên</label>
+                <input type="text" id="fullname" placeholder="Nhập họ và tên của bạn" required>
+            </div>
+            <div class="form-group-checkout">
+                <label for="phone">Số Điện Thoại</label>
+                <input type="text" id="phone" placeholder="Nhập số điện thoại" required>
+            </div>
+            <div class="form-group-checkout">
+                <label for="address">Địa Chỉ Giao Hàng</label>
+                <textarea id="address" rows="3" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố" required></textarea>
+            </div>
+            
+            <div class="payment-methods">
+                <h3>Phương Thức Thanh Toán</h3>
+                <label>
+                    <input type="radio" name="payment_method" value="cod" checked> Thanh toán khi nhận hàng (COD)
+                </label>
+                <label>
+                    <input type="radio" name="payment_method" value="bank_transfer"> Chuyển khoản ngân hàng
+                </label>
+            </div>
+
+            <button type="submit" class="btn-checkout">XÁC NHẬN THANH TOÁN</button>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Lấy thông tin từ URL (Query Parameters)
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        const productName = urlParams.get('name');
+        const productAuthor = urlParams.get('author');
+        const productGenre = urlParams.get('genre');
+        const productPrice = urlParams.get('price'); // Giá trị số, ví dụ: 150000
+        const productImage = urlParams.get('image'); // Tên tệp hình ảnh, ví dụ: nha_gia_kim.jpg
+
+        const priceNum = parseInt(productPrice || 0);
+
+        if (productName && priceNum > 0 && productImage) {
+            // 2. Định dạng giá tiền
+            const formattedPrice = new Intl.NumberFormat('vi-VN').format(priceNum) + ' VNĐ';
+
+            // 3. Chèn thông tin sản phẩm vào trang thanh toán
+            const productContainer = document.getElementById('selected-product-container');
+            const totalElement = document.getElementById('total-amount');
+            
+            productContainer.innerHTML = `
+                <div class="product-item-checkout">
+                    <img src="static/images/${productImage}" alt="${productName}">
+                    
+                    <div class="product-details-checkout">
+                        <h4>${productName}</h4>
+                        <p>Tác giả: ${productAuthor || 'Đang cập nhật'}</p>
+                        <p>Thể loại: ${productGenre || 'Khác'}</p>
+                        <p style="font-weight: 600; color: #ff6f61;">Giá: ${formattedPrice}</p>
+                        
+                        <div class="quantity-control">
+                            <label for="quantity">Số lượng:</label>
+                            <input type="number" id="quantity" value="1" min="1" onchange="updateTotal(${priceNum})">
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Cập nhật tổng tiền ban đầu
+            totalElement.textContent = formattedPrice;
+
+            // Định nghĩa hàm cập nhật tổng tiền
+            window.updateTotal = function(price) {
+                const quantityInput = document.getElementById('quantity');
+                const quantity = parseInt(quantityInput.value) || 1;
+                const newTotal = price * quantity;
+                const formattedTotal = new Intl.NumberFormat('vi-VN').format(newTotal) + ' VNĐ';
+                totalElement.textContent = formattedTotal;
+            }
+
+        } else {
+            // Xử lý trường hợp không có sản phẩm
+            document.getElementById('selected-product-container').innerHTML = `
+                <div class="product-item-checkout" style="justify-content: center; color: #ff6f61;">
+                    <p>Lỗi: Không tìm thấy thông tin sản phẩm. Vui lòng quay lại trang chủ.</p>
+                </div>
+            `;
+            document.getElementById('total-amount').textContent = '0 VNĐ';
+        }
+    });
+</script>
+
+{% endblock %}

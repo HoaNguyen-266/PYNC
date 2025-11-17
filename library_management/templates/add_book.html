@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block title %}Thêm/Sửa Sách{% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Thêm Sách Mới</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('books') }}">Danh Sách Sách</a>
+            <a href="{{ url_for('home') }}">Trang Chủ</a>
+        </div>
+        <h1>THÊM SÁCH MỚI</h1>
+        <div class="nav-right">
+            <a href="{{ url_for('login') }}">Đăng Nhập</a>
+            <a href="{{ url_for('signup') }}">Đăng Ký</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="form-container">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class="flash-messages">
+                        {% for msg in messages %}
+                            <li>{{ msg }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('add_book') }}" method="post">
+                <div class="form-group">
+                    <label for="book_name">Tên sách *</label>
+                    <input type="text" id="book_name" name="book_name" required class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="author">Tác giả *</label>
+                    <input type="text" id="author" name="author" required class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="description">Mô tả</label>
+                    <textarea id="description" name="description" rows="4" class="form-control"></textarea>
+                </div>
+                <div>
+                    <button type="submit" class="btn">Thêm sách</button>
+                    <a href="{{ url_for('books') }}" class="btn btn-secondary">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        ĐỒ ÁN CUỐI KỲ - LẬP TRÌNH PYTHON NÂNG CAO
+    </footer>
+</body>
+</html>
+{% endblock %}

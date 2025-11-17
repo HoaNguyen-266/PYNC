@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title if title else "Mua Sách Trực Tuyến" }}</title>
+    <style>
+        body{
+            margin: 0;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #fff8f2 0%, #ffeae0 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 40px;
+            background: linear-gradient(90deg, #ff9aa2 30%, #ffb6b9 100%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .navbar .nav-left,
+        .navbar .nav-right {
+            display: flex;
+            gap: 16px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            background: #fff;
+            color: #ff6f61;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            border: 1.5px solid #ff6f61;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+
+        .navbar a:hover {
+            background: #ff6f61;
+            color: #fff;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 2.1em;
+            font-weight: 700;
+            flex: 1;
+            text-align: center;
+            color: #ff6f61;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 50px 0;
+            flex-grow: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 18px 0;
+            background-color: #fff0f5;
+            font-size: 1em;
+            color: #ff6f61;
+            letter-spacing: 1px;
+            margin-top: auto;
+        }
+
+        .booklist {
+            width: 80%;
+            background: #fffffccc;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .booklist h2 {
+            text-align: center;
+            color: #ff6f61;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+        .search-filter input,
+        .search-filter select {
+            padding: 8px 14px;
+            border: 1.5px solid #ffb6b9;
+            border-radius: 8px;
+            outline: none;
+            font-size: 15px;
+        }
+        .search-filter a {
+            margin-left: 10px;
+            text-decoration: none;
+            color: #ff6f61;
+            font-weight: 600;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ffe9e9;
+            text-align: center;
+        }
+        th {
+            background: #ffb6b9;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover {
+            background: #fff5f5
+        }
+        @keyframes fadeIn {
+                from {opacity: 0; transform: translateY(10px);}
+                to {opacity: 1; transform: translateY(0);}
+            }
+        .auth-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            padding: 40px 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: left;
+            animation: fadeIn o.4s ease-out;
+        }
+        .auth-container h2 {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 1em;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="password"]{
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ffb6b9;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .form-group input[type="text"]:focus,
+        .form-group input[type="password"]:focus {
+            border-color: #ff6f61; /* Viền màu hồng đậm khi focus */
+        }
+        
+        .placeholder-text {
+            color: #aaa; /* Màu chữ mờ cho placeholder */
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: #ff6f61; /* Màu nút chính */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 10px rgba(255, 111, 97, 0.3);
+        }
+
+        .btn-submit:hover {
+            background-color: #e55c4e; /* Màu đậm hơn khi hover */
+            box-shadow: 0 6px 15px rgba(255, 111, 97, 0.4);
+        }
+        
+        .auth-switch {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.95em;
+            color: #777;
+        }
+        
+        .auth-switch a {
+            color: #ff6f61; /* Màu link */
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        
+        .auth-switch a:hover {
+            color: #e55c4e;
+            text-decoration: underline;
+        }
+        /* Điều chỉnh body để hỗ trợ footer ở dưới cùng */
+        html {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .checkout-container {
+            width: 90%;
+            max-width: 1000px;
+            background: #fffff0;
+            padding: 40px;
+            border-radius: 0 8px 25px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 30px;
+        }
+        .order-summary {
+            flex: 2;
+        }
+        .shipping-info{
+            flex: 3;
+        }
+        .checkout-container h2 {
+            color: #ff6f61;
+            font-size: 2em;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffb6b9;
+            padding-bottom: 10px;
+        }
+        .product-item-checkout{
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            border-bottom: 1px dashed #ffdcdc;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .product-item-checkout img {
+            width: 80px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .product-details-checkout {
+            flex-grow: 1;
+        }
+        .product-details-checkout h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+            font-size: 1.1em;
+        }
+        .product-details-checkout p {
+    margin: 0;
+    color: #777;
+    font-size: 0.9em;
+}
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 8px;
+}
+.quantity-control input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ffb6b9;
+    border-radius: 4px;
+}
+.subtotal-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-top: 20px;
+    color: #ff6f61;
+}
+/* Form field styling (Dùng lại từ auth-container) */
+.form-group-checkout label {
+    display: block;
+    font-size: 1em;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+}
+.form-group-checkout input[type="text"],
+.form-group-checkout input[type="email"],
+.form-group-checkout textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ffb6b9;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s;
+    margin-bottom: 15px;
+}
+.form-group-checkout input[type="text"]:focus,
+.form-group-checkout input[type="email"]:focus,
+.form-group-checkout textarea:focus {
+    border-color: #ff6f61;
+}
+.payment-methods {
+    margin-top: 25px;
+}
+.payment-methods label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+.btn-checkout {
+    width: 100%;
+    padding: 15px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin-top: 20px;
+}
+.btn-checkout:hover {
+    background-color: #e55c4e;
+    box-shadow: 0 6px 15px rgba(255, 111, 97, 0.4);
+}
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* 3-4 cột */
+    gap: 30px;
+    margin-top: 30px;
+}
+.book-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none; /* Vì card là thẻ <a> */
+    color: #333;
+    border: 1px solid #ffe9e9;
+}
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+.book-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+}
+.book-info {
+    padding: 15px;
+    text-align: left;
+}
+.book-info h4 {
+    font-size: 1.15em;
+    margin: 0 0 5px 0;
+    color: #ff6f61;
+}
+.book-info p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #777;
+}
+.book-price {
+    font-weight: 700;
+    color: #333;
+    margin-top: 10px;
+}
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('home') }}">Trang Chủ</a>
+        </div>
+        <h1>MUA SÁCH TRỰC TUYẾN</h1>
+        <div class="nav-right">
+            <a href="{{ url_for('login') }}">Đăng Nhập</a>
+            <a href="{{ url_for('signup') }}">Đăng Ký</a>
+        </div>
+    </div>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        ĐỒ ÁN CUỐI KỲ - LẬP TRÌNH PYTHON NÂNG CAO
+    </footer>
+</body>
+</html>

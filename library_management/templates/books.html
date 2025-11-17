@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block title %}Thêm/Sửa Sách{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Danh Sách Sách</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('home') }}">Trang Chủ</a>
+            <a href="{{ url_for('books') }}">Danh Sách Sách</a>
+        </div>
+        <h1>MUA SÁCH TRỰC TUYẾN</h1>
+        <div class="nav-right">
+            <a href="{{ url_for('login') }}">Đăng Nhập</a>
+            <a href="{{ url_for('signup') }}">Đăng Ký</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="book-list">
+            <h2>Danh sách sách
+                <a href="{{ url_for('add_book') }}" class="btn" style="margin-left: 20px;">Thêm sách mới</a>
+            </h2>
+
+            {% if books %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tên sách</th>
+                        <th>Tác giả</th>
+                        <th>Mô tả</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.description }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Chưa có sách nào trong thư viện.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <footer>
+        ĐỒ ÁN CUỐI KỲ - LẬP TRÌNH PYTHON NÂNG CAO
+    </footer>
+</body>
+</html>
+
+{% endblock %}

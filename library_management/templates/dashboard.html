@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Dashboard Thống kê</h2>
+
+<ul class="list-group">
+  <li class="list-group-item">Sách mượn nhiều nhất: {{ top_book }}</li>
+  <li class="list-group-item">Độc giả tích cực nhất: {{ top_user }}</li>
+  <li class="list-group-item">Sách quá hạn: {{ overdue_books }}</li>
+</ul>
+
+{% endblock %}

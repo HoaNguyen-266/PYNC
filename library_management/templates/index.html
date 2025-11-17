@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="booklist" style="width: 90%; max-width: 1200px; padding: 40px;">
+    <h2>DANH SÁCH SÁCH BÁN CHẠY</h2>
+    
+    <div class="search-filter" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <input type="text" placeholder="Tìm kiếm sách">
+            
+            <select>
+                <option selected disabled>Tất cả thể loại</option>
+                <option>Văn học</option>
+                <option>Khoa học</option>
+                <option>Kỹ năng sống</option>
+            </select>
+        </div>
+        
+        <button id="addBookBtn" style="background: #ff6f61; color: white; padding: 10px 18px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+    Thêm sách mới
+</button>
+    </div>
+
+    <div class="book-grid">
+        
+        <a href="{{ url_for('checkout') }}?id=1&name=Nhà%20Giả%20Kim&author=Paulo%20Coelho&genre=Văn%20học&price=150000&image=nha_gia_kim.jpg" class="book-card" class="book-card">
+            <img src="{{url_for('static', filename='images/nha_gia_kim.jpg')}}" alt="Nhà Giả Kim">
+            <div class="book-info">
+                <h4>Nhà giả kim (The Alchemist)</h4>
+                <p>Tác giả: Paulo Coelho</p>
+                <p>Thể loại: Văn học</p>
+                <p class="book-price">150.000 VNĐ</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('checkout') }}?id=2&name=Sapiens&author=Yuval%20Noah%20Harari&genre=Khoa%20học&price=175000&image=sapiens.jpg" class="book-card">
+            <img src="{{url_for('static', filename='images/sapiens.jpg')}}" alt="Sapiens">
+            <div class="book-info">
+                <h4>Sapiens: Lược sử loài người</h4>
+                <p>Tác giả: Yuval Noah Harari</p>
+                <p>Thể loại: Khoa học</p>
+                <p class="book-price">175.000 VNĐ</p>
+            </div>
+        </a>
+        
+        <a href="{{ url_for('checkout') }}?id=3&name=Đắc%20nhân%20tâm&author=Dale%20Carnegie&genre=Kỹ%20năng%20sống&price=120000&image=dac_nhan_tam.jpg" class="book-card">
+            <img src="{{url_for('static', filename='images/dac_nhan_tam.jpg')}}" alt="Đắc Nhân Tâm">
+            <div class="book-info">
+                <h4>Đắc nhân tâm</h4>
+                <p>Tác giả: Dale Carnegie</p>
+                <p>Thể loại: Kỹ năng sống</p>
+                <p class="book-price">120.000 VNĐ</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('checkout') }}?id=4&name=Tôi%20tài%20giỏi&author=Adam%20Khoo&genre=Kỹ%20năng%20sống&price=135000&image=toi_tai_gioi.jpg" class="book-card">
+            <img src="{{url_for('static',filename='images/toi_tai_gioi.jpg')}}" alt="Tôi tài giỏi bạn cũng thế">
+            <div class="book-info">
+                <h4>Tôi tài giỏi bạn cũng thế</h4>
+                <p>Tác giả: Adam Khoo</p>
+                <p>Thể loại: Kỹ năng sống</p>
+                <p class="book-price">135.000 VNĐ</p>
+            </div>
+        </a>
+        <a href="{{ url_for('checkout') }}?id=5&name=Code%20Dạo%20Ký%20Sự&author=Phạm%20Huy%20Hoàng&genre=Khoa%20học&price=160000&image=code_dao.jpg" class="book-card">
+            <img src="{{ url_for('static', filename='images/code_dao.jpg') }}" alt="Code Dạo Ký Sự">
+            <div class="book-info">
+                <h4>Code Dạo Ký Sự</h4>
+                <p>Tác giả: Phạm Huy Hoàng</p>
+                <p>Thể loại: Khoa học</p>
+                <p class="book-price">160.000 VNĐ</p>
+            </div>
+        </a>
+        
+        <a href="{{ url_for('checkout') }}?id=6&name=Từ%20Tốt%20Đến%20Vĩ%20Đại&author=Jim%20Collins&genre=Kinh%20doanh&price=220000&image=good_to_great.jpg" class="book-card">
+            <img src="{{ url_for('static', filename='images/good_to_great.jpg') }}" alt="Từ Tốt Đến Vĩ Đại">
+            <div class="book-info">
+                <h4>Từ Tốt Đến Vĩ Đại</h4>
+                <p>Tác giả: Jim Collins</p>
+                <p>Thể loại: Kinh doanh</p>
+                <p class="book-price">220.000 VNĐ</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('checkout') }}?id=7&name=Khởi%20Nghiệp%20Tinh%20Gọn&author=Eric%20Ries&genre=Kinh%20doanh&price=185000&image=lean_startup.jpg" class="book-card">
+            <img src="{{ url_for('static', filename='images/lean_startup.jpg') }}" alt="Khởi Nghiệp Tinh Gọn">
+            <div class="book-info">
+                <h4>Khởi Nghiệp Tinh Gọn</h4>
+                <p>Tác giả: Eric Ries</p>
+                <p>Thể loại: Kinh doanh</p>
+                <p class="book-price">185.000 VNĐ</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('checkout') }}?id=8&name=1984&author=George%20Orwell&genre=Văn%20học&price=110000&image=1984.jpg" class="book-card">
+            <img src="{{ url_for('static', filename='images/1984.jpg') }}" alt="1984">
+            <div class="book-info">
+                <h4>1984</h4>
+                <p>Tác giả: George Orwell</p>
+                <p>Thể loại: Văn học</p>
+                <p class="book-price">110.000 VNĐ</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('checkout') }}?id=9&name=Vòng%20Quanh%20Thế%20Giới%20Trong%2080%20Ngày&author=Jules%20Verne&genre=Văn%20học&price=95000&image=80_days.jpg" class="book-card">
+            <img src="{{ url_for('static', filename='images/80_days.jpg') }}" alt="Vòng Quanh Thế Giới Trong 80 Ngày">
+            <div class="book-info">
+                <h4>Vòng Quanh Thế Giới Trong 80 Ngày</h4>
+                <p>Tác giả: Jules Verne</p>
+                <p>Thể loại: Văn học</p>
+                <p class="book-price">95.000 VNĐ</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('checkout') }}?id=10&name=Thép%20Đã%20Tôi%20Thế%20Đấy&author=Nikolai%20Ostrovsky&genre=Văn%20học&price=130000&image=thep_da_toi.jpg" class="book-card">
+            <img src="{{ url_for('static', filename='images/thep_da_toi.jpg') }}" alt="Thép Đã Tôi Thế Đấy">
+            <div class="book-info">
+                <h4>Thép Đã Tôi Thế Đấy</h4>
+                <p>Tác giả: Nikolai Ostrovsky</p>
+                <p>Thể loại: Văn học</p>
+                <p class="book-price">130.000 VNĐ</p>
+            </div>
+        </a>
+        <a href="{{ url_for('checkout') }}?id=11&name=Hoàng%20Lê%20Nhất%20Thống%20Chí&author=Ngô%20Gia%20Văn%20Phái&genre=Văn%20học&price=150000&image=hoang_le.jpg" class="book-card">
+            <img src="{{url_for('static', filename='images/hoang_le.jpg')}}" alt="Hoàng Lê Nhất Thống Chí">
+            <div class="book-info">
+                <h4>Hoàng Lê Nhất Thống Chí</h4>
+                <p>Tác giả: Ngô Gia Văn Phái (Ngô Tất Tố dịch)</p>
+                <p>Thể loại: Văn học</p>
+                <p class="bôk-price">150.000</p>
+            </div>
+        </a>
+    </div>
+</div>
+<div id="addBook" style="
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding-top: 60px;">
+    <div style="
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 25px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 450px;
+        border-radius: 10px;
+        position: relative;">
+        <span id="closeModal" style="
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        ">&times;</span>
+        <h3 style="color: #333;">📝 Thêm Sách Mới</h3>
+        
+        <form action="#" method="POST">
+            <div style="margin-bottom: 15px;">
+                <label for="book_title" style="display: block;">Tên sách:</label>
+                <input type="text" id="book_title" name="book_title" required style="width: 95%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="book_author" style="display: block;">Tác giả:</label>
+                <input type="text" id="book_author" name="book_author" required style="width: 95%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="book_genre" style="display: block;">Thể loại:</label>
+                <select id="book_genre" name="book_genre" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    <option selected disabled>Chọn thể loại</option>
+                    <option>Văn học</option>
+                    <option>Khoa học</option>
+                    <option>Kỹ năng sống</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label for="book_price" style="display: block;">Giá sách (VNĐ):</label>
+                <input type="number" id="book_price" name="book_price" required min="1000" style="width: 95%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+            
+            <button type="submit" style="background: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Lưu Sách</button>
+        </form>
+        </div>
+    </div>
+
+<script>
+    var modal = document.getElementById("addBook");
+    var btn = document.getElementById("addBookBtn"); // Lấy nút "Thêm sách mới"
+    var span = document.getElementById("closeModal"); // Lấy nút đóng (x)
+
+    // Khi click nút "Thêm sách mới" -> mở popup
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // Khi click (x) -> đóng popup
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // Khi click ra ngoài popup -> đóng popup
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+</script>
+
+{% endblock %}
